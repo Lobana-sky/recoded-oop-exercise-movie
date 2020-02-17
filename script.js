@@ -6,16 +6,21 @@ class App {
   static run() {
     APIService.fetchMovie(534)
       .then(movie => Page.renderMovie(movie))
+    
   }
 }
-
 class APIService {
-
   static fetchMovie(movieId) {
     const url = APIService._constructUrl(`movie/${movieId}`)
     return fetch(url)
       .then(res => res.json())
       .then(json => new Movie(json))
+  }
+   static fetchAct(actId) {
+    const urlAct = APIService._constructUrl(`movie/${actId}/credits`)
+    return fetch(urlAct)
+      .then(res => res.json())
+      .then(json => new Actor(json))
   }
 
   static  _constructUrl(path) {
@@ -30,6 +35,8 @@ class Page {
   static runtime = document.getElementById('movie-runtime')
   static overview = document.getElementById('movie-overview')
 
+  static actors=document.getElementById('actors');
+
   static renderMovie(movie) {
     Page.backdrop.src = BACKDROP_BASE_URL + movie.backdropPath
     Page.title.innerText = movie.title
@@ -37,6 +44,19 @@ class Page {
     Page.runtime.innerText = movie.runtime + " minutes"
     Page.overview.innerText = movie.overview
   }
+ static renderActor(act) {
+    //mmmmmm
+    act.map(e=>{
+
+    let img=document.crearteElement('img');
+    let p=document.crearteElement('p');
+    img.src=e.pic;//how could i know the name of attribute?
+    p.innerText=e.name;
+    let newLi=document.crearteElement('li');
+    newLi.appendChild(img,p);
+    Page.actors.appendChild(newLi);
+  }
+  })
 }
 
 class Movie {
@@ -49,5 +69,13 @@ class Movie {
     this.backdropPath = json.backdrop_path
   }
 }
+class Actor {
+  constructor(json) {
+    //mmmmmmmmm
+    this.name=json.name;
+    this.pic=json.pic;
+  }
+}
 
 document.addEventListener("DOMContentLoaded", App.run);
+
