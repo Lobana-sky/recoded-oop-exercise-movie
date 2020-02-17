@@ -20,7 +20,15 @@ class APIService {
     const urlAct = APIService._constructUrl(`movie/${actId}/credits`)
     return fetch(urlAct)
       .then(res => res.json())
-      .then(json => new Actor(json))
+      .then(json => {
+
+        let actors=[];
+        for (let i = 0; i <4; i++) {
+          actors.push(new Actor(json.cast[i]))
+        }
+       //
+       return actors;
+       })//should be an array
   }
 
   static  _constructUrl(path) {
@@ -55,9 +63,9 @@ class Page {
     let newLi=document.crearteElement('li');
     newLi.appendChild(img,p);
     Page.actors.appendChild(newLi);
-  }
+  
   })
-}
+}}
 
 class Movie {
   constructor(json) {
