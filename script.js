@@ -26,7 +26,6 @@ class APIService {
         let actors=[];
         for (let i = 0; i <4; i++) {
           actors.push(new Actor(json.cast[i]))
-          console.log(json.cast[i])
         }
        //
        return actors;
@@ -57,13 +56,14 @@ class Page {
  static renderActor(act) {
     //mmmmmm
     act.map(e=>{
-
     let img=document.createElement('img');
     let p=document.createElement('p');
-    img.src=PROFILE_BASE_URL+"/"+e.pic;//how could i know the name of attribute?
+    img.src=PROFILE_BASE_URL+"/"+e.pic1;
     p.innerHTML=e.name;
     let newLi=document.createElement('li');
-    newLi.appendChild(img,p);
+    newLi.appendChild(img);
+    newLi.appendChild(p);
+    newLi.className="col-sm-3";
     Page.actors.appendChild(newLi);
   
   })
@@ -83,7 +83,7 @@ class Actor {
   constructor(json) {
     //mmmmmmmmm
     this.name=json.name;
-    this.pic=json.profile_path;
+    this.pic1=json.profile_path;
   }
 }
 
