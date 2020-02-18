@@ -6,7 +6,8 @@ class App {
   static run() {
     APIService.fetchMovie(534)
       .then(movie => Page.renderMovie(movie))
-    
+    APIService.fetchAct(534)
+      .then(actor => Page.renderActor(actor))
   }
 }
 class APIService {
@@ -16,8 +17,8 @@ class APIService {
       .then(res => res.json())
       .then(json => new Movie(json))
   }
-   static fetchAct(actId) {
-    const urlAct = APIService._constructUrl(`movie/${actId}/credits`)
+   static fetchAct(movieId) {
+    const urlAct = APIService._constructUrl(`movie/${movieId}/credits`)
     return fetch(urlAct)
       .then(res => res.json())
       .then(json => {
@@ -25,6 +26,7 @@ class APIService {
         let actors=[];
         for (let i = 0; i <4; i++) {
           actors.push(new Actor(json.cast[i]))
+          console.log(json.cast[i])
         }
        //
        return actors;
@@ -56,11 +58,11 @@ class Page {
     //mmmmmm
     act.map(e=>{
 
-    let img=document.crearteElement('img');
-    let p=document.crearteElement('p');
-    img.src=e.profile_path;//how could i know the name of attribute?
-    p.innerText=e.name;
-    let newLi=document.crearteElement('li');
+    let img=document.createElement('img');
+    let p=document.createElement('p');
+    img.src=PROFILE_BASE_URL+"/"+e.pic;//how could i know the name of attribute?
+    p.innerHTML=e.name;
+    let newLi=document.createElement('li');
     newLi.appendChild(img,p);
     Page.actors.appendChild(newLi);
   
