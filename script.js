@@ -58,7 +58,7 @@ class Page {
 
     let img=document.crearteElement('img');
     let p=document.crearteElement('p');
-    img.src=e.pic;//how could i know the name of attribute?
+    img.src=e.profile_path;//how could i know the name of attribute?
     p.innerText=e.name;
     let newLi=document.crearteElement('li');
     newLi.appendChild(img,p);
@@ -81,7 +81,7 @@ class Actor {
   constructor(json) {
     //mmmmmmmmm
     this.name=json.name;
-    this.pic=json.pic;
+    this.pic=json.profile_path;
   }
 }
 
