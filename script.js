@@ -17,8 +17,8 @@ class APIService {
       .then(res => res.json())
       .then(json => new Movie(json))
   }
-   static fetchAct(movieId) {
-    const urlAct = APIService._constructUrl(`movie/${movieId}/credits`)
+   static fetchAct(movieId) {//movie
+    const urlAct = APIService._constructUrl(`movie/${movieId}/credits`)//movie.id
     return fetch(urlAct)
       .then(res => res.json())
       .then(json => {
@@ -55,7 +55,7 @@ class Page {
   }
  static renderActor(act) {
     //mmmmmm
-    act.map(e=>{
+    act.map(e=>{//return an array and i dont need any return value so we will use the foreach act.foreach(e=>{
     let img=document.createElement('img');
     let p=document.createElement('p');
     img.src=PROFILE_BASE_URL+"/"+e.pic1;
